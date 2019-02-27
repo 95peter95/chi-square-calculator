@@ -1,7 +1,7 @@
 {
   "name": "chisquaretest",
   "short_name": "chisquaretest",
-  "start_url": "/chi-square-calculator/",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fff",
