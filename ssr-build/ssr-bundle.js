@@ -58,7 +58,7 @@ module.exports =
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
+/******/ 	__webpack_require__.p = "/chi-square-calculator/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "JkW7");
@@ -547,7 +547,11 @@ var getChisquare = function getChisquare(str1, str2, str3, str4) {
   return chisquare.toFixed(3);
 };
 
-var home__ref = Object(preact_min["h"])("br", null);
+var home__ref = Object(preact_min["h"])(
+  "h1",
+  null,
+  "Hanak je kokot"
+);
 
 var home__ref2 = Object(preact_min["h"])("br", null);
 
@@ -556,6 +560,8 @@ var _ref3 = Object(preact_min["h"])("br", null);
 var _ref4 = Object(preact_min["h"])("br", null);
 
 var _ref5 = Object(preact_min["h"])("br", null);
+
+var _ref6 = Object(preact_min["h"])("br", null);
 
 var home_Home = function (_Component) {
   _inherits(Home, _Component);
@@ -666,6 +672,7 @@ var home_Home = function (_Component) {
     return Object(preact_min["h"])(
       "div",
       { "class": home_style_default.a.home },
+      home__ref,
       Object(preact_min["h"])(
         "table",
         null,
@@ -818,14 +825,14 @@ var home_Home = function (_Component) {
           )
         )
       ),
-      home__ref,
+      home__ref2,
       Object(preact_min["h"])(
         "button",
         { onClick: this.onSumExpected },
         "Calculate Chi-Square Value"
       ),
-      home__ref2,
       _ref3,
+      _ref4,
       step == 1 && Object(preact_min["h"])(
         "table",
         null,
@@ -965,7 +972,7 @@ var home_Home = function (_Component) {
           )
         )
       ),
-      _ref4,
+      _ref5,
       step == 1 && Object(preact_min["h"])(
         "table",
         null,
@@ -1066,7 +1073,7 @@ var home_Home = function (_Component) {
           )
         )
       ),
-      _ref5,
+      _ref6,
       step == 1 && Object(preact_min["h"])(
         "table",
         null,
