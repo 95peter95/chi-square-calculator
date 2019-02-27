@@ -1234,51 +1234,40 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 
 var app__ref = Object(preact_min["h"])(header, null);
 
-var app__ref2 = Object(preact_min["h"])(home, { path: '/' });
-
-var app__ref3 = Object(preact_min["h"])(profile_Profile, { path: '/profile/', user: 'me' });
-
-var app__ref4 = Object(preact_min["h"])(profile_Profile, { path: '/profile/:user' });
+var app__ref2 = Object(preact_min["h"])(home, null);
 
 var app_App = function (_Component) {
-	app__inherits(App, _Component);
+  app__inherits(App, _Component);
 
-	function App() {
-		var _temp, _this, _ret;
+  function App() {
+    var _temp, _this, _ret;
 
-		app__classCallCheck(this, App);
+    app__classCallCheck(this, App);
 
-		for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-			args[_key] = arguments[_key];
-		}
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-		return _ret = (_temp = (_this = app__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.handleRoute = function (e) {
-			_this.currentUrl = e.url;
-		}, _temp), app__possibleConstructorReturn(_this, _ret);
-	}
+    return _ret = (_temp = (_this = app__possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.handleRoute = function (e) {
+      _this.currentUrl = e.url;
+    }, _temp), app__possibleConstructorReturn(_this, _ret);
+  }
+  /** Gets fired when the route changes.
+   *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
+   *	@param {string} event.url	The newly routed URL
+   */
 
-	/** Gets fired when the route changes.
-  *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
-  *	@param {string} event.url	The newly routed URL
-  */
 
+  App.prototype.render = function render() {
+    return Object(preact_min["h"])(
+      "div",
+      { id: "app" },
+      app__ref,
+      app__ref2
+    );
+  };
 
-	App.prototype.render = function render() {
-		return Object(preact_min["h"])(
-			'div',
-			{ id: 'app' },
-			app__ref,
-			Object(preact_min["h"])(
-				preact_router_es["Router"],
-				{ onChange: this.handleRoute },
-				app__ref2,
-				app__ref3,
-				app__ref4
-			)
-		);
-	};
-
-	return App;
+  return App;
 }(preact_min["Component"]);
 
 
