@@ -121,7 +121,6 @@ class Home extends Component {
 
     return (
       <div class={style.home}>
-        <h1>Hanak je kokot</h1>
         <table>
           <tbody>
             <tr>

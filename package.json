@@ -3,6 +3,7 @@
   "name": "chisquaretest",
   "version": "0.0.0",
   "license": "MIT",
+  "homepage": "https://95peter95.github.io/chi-square-calculator/",
   "scripts": {
     "start": "per-env",
     "start:production": "npm run -s serve",
@@ -11,7 +12,9 @@
     "serve": "preact build && preact serve",
     "dev": "preact watch",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "eslint-config-synacor"
