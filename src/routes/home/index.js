@@ -28,6 +28,12 @@ const getChisquare = (str1, str2, str3, str4) => {
   return chisquare.toFixed(3);
 };
 
+const getPhisquare = (str1, str2) => {
+  const phisquare =
+    Number.parseFloat(str1) / Number.parseFloat(str2);
+  return phisquare.toFixed(3);
+};
+
 class Home extends Component {
   state = {
     observed: {
@@ -49,7 +55,11 @@ class Home extends Component {
     },
 
     chisquare: {
-      row1: ["ChiSquare", null]
+      row1: ["Chi-square", null]
+    },
+
+    phisquare: {
+      row1: ["Phi-square", null]
     },
 
     step: 0
@@ -68,7 +78,7 @@ class Home extends Component {
   };
 
   onSumExpected = () => {
-    let { observed: o, expected: e, residual: r, chisquare: chi } = this.state;
+    let { observed: o, expected: e, residual: r, chisquare: chi, phisquare: phi } = this.state;
 
     // totals
 
@@ -97,11 +107,15 @@ class Home extends Component {
     // chisquare
     chi.row1[1] = getChisquare(r.row2[1], r.row2[2], r.row3[1], r.row3[2]);
 
+    // phisquare
+    phi.row1[1] = getPhisquare(chi.row1[1],o.row4[3]);
+
     this.setState({
       observed: o,
       expected: e,
       residual: r,
       chisquare: chi,
+      phisquare: phi,
       step: 1
     });
   };
@@ -112,6 +126,7 @@ class Home extends Component {
       expected: e,
       residual: r,
       chisquare: chi,
+      phisquare: phi,
       step
     } = this.state;
 
@@ -121,7 +136,6 @@ class Home extends Component {
 
     return (
       <div class={style.home}>
-        <h1>Hanak je kokot</h1>
         <table>
           <tbody>
             <tr>
@@ -407,7 +421,28 @@ class Home extends Component {
             </tbody>
           </table>
         )}
-      </div>
+          
+          {/* phisquare */}
+
+          {step == 1 && (
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <input disabled value={phi.row1[0]} />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      disabled
+                      value={phi.row1[1]}
+                      onChange={phi => this.setValues(phi, 1, 1)}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>)}
+            </div>
     );
   }
 }

@@ -4,10 +4,10 @@ import style from "./style";
 
 const Header = () => (
   <header class={style.header}>
-    <h1>Preact App</h1>
+    <h1>Contingency Analysis Tool for 2x2 table</h1>
     <nav>
       <Link activeClassName={style.active} href="/">
-        ChiSquare value calculator
+        Tool
       </Link>
       <Link activeClassName={style.active} href="/profile">
         Me
