@@ -14,7 +14,7 @@ const getExpected = (str1, str2, str3) => {
 
 const getRelative = (str1, str2) => {
   const relative =
-    Number.parseFloat(str1) / Number.parseFloat(str2) ** 100;
+    Number.parseFloat(str1) / Number.parseFloat(str2)*100;
 
   return relative.toFixed(2);
 };
@@ -57,10 +57,10 @@ class Home extends Component {
     },
 
     relative: {
-      row1: ["Relative", "", "", "Totals"],
-      row2: ["", null, null, null],
-      row3: ["", null, null, null],
-      row4: ["Totals", null, null, null]
+      row1: ["Relative (%)", "", ""],
+      row2: ["", null, null],
+      row3: ["", null, null],
+      row4: ["Totals", null, null]
     },
 
     residual: {
@@ -118,6 +118,15 @@ class Home extends Component {
 
     rel.row3[1] = getRelative(o.row3[1], o.row4[3]);
     rel.row3[2] = getRelative(o.row3[2], o.row4[3]);
+    
+   //relativesums
+    rel.row2[3] = getRelative(rel.row2[1], rel.row2[2]);
+    rel.row3[3] = getRelative(rel.row3[1], rel.row3[2]);
+
+    rel.row4[1] = getRelative(rel.row2[1], rel.row2[2]);
+    rel.row4[2] = getRelative(rel.row3[1], rel.row3[2]);
+
+    rel.row4[3] = getRelative(rel.row4[1], rel.row4[2]);
 
     // residual
     r.row2[1] = getResidual(o.row2[1], e.row2[1], e.row2[1]);
@@ -361,14 +370,14 @@ class Home extends Component {
             <tbody>
               <tr>
                 <td>
-                  <input disabled value={o.row1[0]} />
+                  <input disabled value={rel.row1[0]} />
                 </td>
                 <td>
                   <input
                     type="text"
                     disabled
                     value={o.row1[1]}
-                    onChange={e => this.setValues(e, 1, 1)}
+                    onChange={rel => this.setValues(rel, 1, 1)}
                   />
                 </td>
                 <td>
@@ -379,11 +388,7 @@ class Home extends Component {
                     onChange={e => this.setValues(e, 1, 2)}
                   />
                 </td>
-                <td>
-                  <input type="text" disabled value={o.row1[3]} />
-                </td>
               </tr>
-
               <tr>
                 <td>
                   <input
@@ -394,19 +399,17 @@ class Home extends Component {
                   />
                 </td>
                 <td>
-                  <input type="number" disabled value={rel.row2[1]+'%'} />
+                  <input type="number" disabled value={rel.row2[1]}/>
                 </td>
                 <td>
                   <input
                     type="number"
                     disabled
-                    value={rel.row2[2]+'%'}
+                    value={rel.row2[2]}
                     onChange={rel => this.setValues(rel, 2, 2)}
                   />
                 </td>
-                <td>
-                  <input type="number" disabled value={o.row2[3]} />
-                </td>
+              
               </tr>
 
               <tr>
@@ -419,28 +422,10 @@ class Home extends Component {
                   />
                 </td>
                 <td>
-                  <input type="number" disabled value={e.row3[1]} />
+                  <input type="number" disabled value={rel.row3[1]} />
                 </td>
                 <td>
-                  <input type="number" disabled value={e.row3[2]} />
-                </td>
-                <td>
-                  <input type="text" disabled value={o.row3[3]} />
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  <input type="text" disabled value={o.row4[0]} />
-                </td>
-                <td>
-                  <input type="number" disabled value={o.row4[1]} />
-                </td>
-                <td>
-                  <input type="number" disabled value={o.row4[2]} />
-                </td>
-                <td>
-                  <input type="number" disabled value={o.row4[3]} />
+                  <input type="number" disabled value={rel.row3[2]} />
                 </td>
               </tr>
             </tbody>
