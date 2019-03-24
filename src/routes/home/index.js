@@ -12,6 +12,13 @@ const getExpected = (str1, str2, str3) => {
   return expected.toFixed(2);
 };
 
+const getRelative = (str1, str2) => {
+  const relative =
+    Number.parseFloat(str1) / Number.parseFloat(str2) ** 100;
+
+  return relative.toFixed(2);
+};
+
 const getResidual = (str1, str2) => {
   const residual =
     (Number.parseFloat(str1) - Number.parseFloat(str2)) ** 2 /
@@ -48,6 +55,14 @@ class Home extends Component {
       row3: ["", null, null, null],
       row4: ["Totals", null, null, null]
     },
+
+    relative: {
+      row1: ["Relative", "", "", "Totals"],
+      row2: ["", null, null, null],
+      row3: ["", null, null, null],
+      row4: ["Totals", null, null, null]
+    },
+
     residual: {
       row1: ["Residual", "", ""],
       row2: ["", null, null],
@@ -78,7 +93,7 @@ class Home extends Component {
   };
 
   onSumExpected = () => {
-    let { observed: o, expected: e, residual: r, chisquare: chi, phisquare: phi } = this.state;
+    let { observed: o, expected: e, relative: rel, residual: r, chisquare: chi, phisquare: phi } = this.state;
 
     // totals
 
@@ -97,6 +112,13 @@ class Home extends Component {
     e.row3[1] = getExpected(o.row4[1], o.row3[3], o.row4[3]);
     e.row3[2] = getExpected(o.row4[2], o.row3[3], o.row4[3]);
 
+    // relative
+    rel.row2[1] = getRelative(o.row2[1], o.row4[3]);
+    rel.row2[2] = getRelative(o.row2[2], o.row4[3]);
+
+    rel.row3[1] = getRelative(o.row3[1], o.row4[3]);
+    rel.row3[2] = getRelative(o.row3[2], o.row4[3]);
+
     // residual
     r.row2[1] = getResidual(o.row2[1], e.row2[1], e.row2[1]);
     r.row2[2] = getResidual(o.row2[2], e.row2[2], e.row2[2]);
@@ -113,6 +135,7 @@ class Home extends Component {
     this.setState({
       observed: o,
       expected: e,
+      relative: rel,
       residual: r,
       chisquare: chi,
       phisquare: phi,
@@ -124,6 +147,7 @@ class Home extends Component {
     const {
       observed: o,
       expected: e,
+      relative: rel,
       residual: r,
       chisquare: chi,
       phisquare: phi,
@@ -284,6 +308,100 @@ class Home extends Component {
                     disabled
                     value={e.row2[2]}
                     onChange={e => this.setValues(e, 2, 2)}
+                  />
+                </td>
+                <td>
+                  <input type="number" disabled value={o.row2[3]} />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row3[0]}
+                    onChange={e => this.setValues(e, 3, 0)}
+                  />
+                </td>
+                <td>
+                  <input type="number" disabled value={e.row3[1]} />
+                </td>
+                <td>
+                  <input type="number" disabled value={e.row3[2]} />
+                </td>
+                <td>
+                  <input type="text" disabled value={o.row3[3]} />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input type="text" disabled value={o.row4[0]} />
+                </td>
+                <td>
+                  <input type="number" disabled value={o.row4[1]} />
+                </td>
+                <td>
+                  <input type="number" disabled value={o.row4[2]} />
+                </td>
+                <td>
+                  <input type="number" disabled value={o.row4[3]} />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+        <br />
+
+        {/* RELATIVE */}
+
+        {step == 1 && (
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input disabled value={o.row1[0]} />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row1[1]}
+                    onChange={e => this.setValues(e, 1, 1)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row1[2]}
+                    onChange={e => this.setValues(e, 1, 2)}
+                  />
+                </td>
+                <td>
+                  <input type="text" disabled value={o.row1[3]} />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row2[0]}
+                    onChange={e => this.setValues(e, 2, 0)}
+                  />
+                </td>
+                <td>
+                  <input type="number" disabled value={rel.row2[1]+'%'} />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    disabled
+                    value={rel.row2[2]+'%'}
+                    onChange={rel => this.setValues(rel, 2, 2)}
                   />
                 </td>
                 <td>
