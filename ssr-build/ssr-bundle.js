@@ -485,7 +485,7 @@ var header_style_default = /*#__PURE__*/__webpack_require__.n(header_style);
 var header__ref = Object(preact_min["h"])(
   "h1",
   null,
-  "ChiSquare statistic calculator for 2x2 Table"
+  "Contingency Analysis Tool for 2x2 table"
 );
 
 var header_Header = function Header() {
@@ -499,7 +499,7 @@ var header_Header = function Header() {
       Object(preact_min["h"])(
         match["Link"],
         { activeClassName: header_style_default.a.active, href: "/" },
-        "ChiSquare statistic calculator"
+        "Tool"
       ),
       Object(preact_min["h"])(
         match["Link"],
