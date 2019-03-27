@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import style from "./style";
+import BigBinom from "bigbinom";
 
 const sumStrings = (str1, str2) =>
   Number.parseFloat(str1) + Number.parseFloat(str2);
@@ -10,6 +11,12 @@ const getExpected = (str1, str2, str3) => {
     Number.parseFloat(str3);
 
   return expected.toFixed(2);
+};
+
+const getRelative = (str1, str2) => {
+  const relative = (Number.parseFloat(str1) / Number.parseFloat(str2)) * 100;
+
+  return relative.toFixed(2);
 };
 
 const getResidual = (str1, str2) => {
@@ -28,6 +35,60 @@ const getChisquare = (str1, str2, str3, str4) => {
   return chisquare.toFixed(3);
 };
 
+const getPhisquare = (str1, str2) => {
+  const phisquare = Number.parseFloat(str1) / Number.parseFloat(str2);
+  return phisquare.toFixed(3);
+};
+
+function rFact(num) {
+  var rval = 1;
+  for (var i = 2; i <= num; i++) rval = rval * i;
+  return rval;
+}
+
+const getFisher = (str1, str2, str3, str4, str5) => {
+  str1 = Number.parseFloat(str1);
+  str2 = Number.parseFloat(str2);
+  str3 = Number.parseFloat(str3);
+  str4 = Number.parseFloat(str4);
+
+  var bn1 = new BigBinom(str1 + str2, str1),
+    bn2 = new BigBinom(str3 + str4, str3),
+    bn3 = new BigBinom(str1 + str2 + str3 + str4, str1 + str3);
+
+  return bn1.times(bn2).dividedBy(bn3);
+  // const fisher =
+  // ((rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
+  //   rFact(Number.parseFloat(str3) + Number.parseFloat(str4)) *
+  //   rFact(Number.parseFloat(str1) + Number.parseFloat(str3)) *
+  //   rFact(Number.parseFloat(str2) + Number.parseFloat(str4))) /
+  //   rFact(Number.parseFloat(str1))) *
+  // rFact(Number.parseFloat(str2)) *
+  // rFact(Number.parseFloat(str3)) *
+  // rFact(Number.parseFloat(str4)) *
+  // rFact(Number.parseFloat(str5));
+
+  const sum1 =
+    rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
+    rFact(Number.parseFloat(str3) + Number.parseFloat(str4)) *
+    rFact(Number.parseFloat(str1) + Number.parseFloat(str3)) *
+    rFact(Number.parseFloat(str2) + Number.parseFloat(str4));
+  console.log(sum1);
+
+  const sum2 =
+    rFact(Number.parseFloat(str2)) *
+    rFact(Number.parseFloat(str3)) *
+    rFact(Number.parseFloat(str4)) *
+    rFact(Number.parseFloat(str5));
+
+  console.log(sum2);
+
+  const fisher = sum1.toFixed(1) / sum2.toFixed(1);
+  console.log(fisher);
+
+  return fisher.toFixed(3);
+};
+
 class Home extends Component {
   state = {
     observed: {
@@ -42,6 +103,14 @@ class Home extends Component {
       row3: ["", null, null, null],
       row4: ["Totals", null, null, null]
     },
+
+    relative: {
+      row1: ["Relative (%)", "", ""],
+      row2: ["", null, null],
+      row3: ["", null, null],
+      row4: ["Totals", null, null]
+    },
+
     residual: {
       row1: ["Residual", "", ""],
       row2: ["", null, null],
@@ -49,7 +118,15 @@ class Home extends Component {
     },
 
     chisquare: {
-      row1: ["ChiSquare", null]
+      row1: ["Chi-square", null]
+    },
+
+    phisquare: {
+      row1: ["Phi-square", null]
+    },
+
+    fisher: {
+      row1: ["Fisher", null]
     },
 
     step: 0
@@ -68,7 +145,15 @@ class Home extends Component {
   };
 
   onSumExpected = () => {
-    let { observed: o, expected: e, residual: r, chisquare: chi } = this.state;
+    let {
+      observed: o,
+      expected: e,
+      relative: rel,
+      residual: r,
+      chisquare: chi,
+      phisquare: phi,
+      fisher: fish
+    } = this.state;
 
     // totals
 
@@ -87,6 +172,22 @@ class Home extends Component {
     e.row3[1] = getExpected(o.row4[1], o.row3[3], o.row4[3]);
     e.row3[2] = getExpected(o.row4[2], o.row3[3], o.row4[3]);
 
+    // relative
+    rel.row2[1] = getRelative(o.row2[1], o.row4[3]);
+    rel.row2[2] = getRelative(o.row2[2], o.row4[3]);
+
+    rel.row3[1] = getRelative(o.row3[1], o.row4[3]);
+    rel.row3[2] = getRelative(o.row3[2], o.row4[3]);
+
+    //relativesums
+    rel.row2[3] = getRelative(rel.row2[1], rel.row2[2]);
+    rel.row3[3] = getRelative(rel.row3[1], rel.row3[2]);
+
+    rel.row4[1] = getRelative(rel.row2[1], rel.row2[2]);
+    rel.row4[2] = getRelative(rel.row3[1], rel.row3[2]);
+
+    rel.row4[3] = getRelative(rel.row4[1], rel.row4[2]);
+
     // residual
     r.row2[1] = getResidual(o.row2[1], e.row2[1], e.row2[1]);
     r.row2[2] = getResidual(o.row2[2], e.row2[2], e.row2[2]);
@@ -97,27 +198,43 @@ class Home extends Component {
     // chisquare
     chi.row1[1] = getChisquare(r.row2[1], r.row2[2], r.row3[1], r.row3[2]);
 
+    // phisquare
+    phi.row1[1] = getPhisquare(chi.row1[1], o.row4[3]);
+
+    // fisher
+    fish.row1[1] = getFisher(
+      o.row2[1],
+      o.row2[2],
+      o.row3[1],
+      o.row3[2],
+      e.row4[3]
+    );
+    console.log(fish.row1[1]);
+
     this.setState({
       observed: o,
       expected: e,
+      relative: rel,
       residual: r,
       chisquare: chi,
+      phisquare: phi,
+      fisher: fish,
       step: 1
     });
   };
 
   render() {
+    console.log(this.state);
     const {
       observed: o,
       expected: e,
+      relative: rel,
       residual: r,
       chisquare: chi,
+      phisquare: phi,
+      fisher: fish,
       step
     } = this.state;
-
-    console.log(o);
-    console.log(e);
-    console.log(r);
 
     return (
       <div class={style.home}>
@@ -315,6 +432,75 @@ class Home extends Component {
         )}
         <br />
 
+        {/* RELATIVE */}
+
+        {step == 1 && (
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input disabled value={rel.row1[0]} />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row1[1]}
+                    onChange={rel => this.setValues(rel, 1, 1)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row1[2]}
+                    onChange={e => this.setValues(e, 1, 2)}
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row2[0]}
+                    onChange={e => this.setValues(e, 2, 0)}
+                  />
+                </td>
+                <td>
+                  <input type="number" disabled value={rel.row2[1]} />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    disabled
+                    value={rel.row2[2]}
+                    onChange={rel => this.setValues(rel, 2, 2)}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={o.row3[0]}
+                    onChange={e => this.setValues(e, 3, 0)}
+                  />
+                </td>
+                <td>
+                  <input type="number" disabled value={rel.row3[1]} />
+                </td>
+                <td>
+                  <input type="number" disabled value={rel.row3[2]} />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+        <br />
+
         {/* RESIDUAL */}
 
         {step == 1 && (
@@ -401,6 +587,45 @@ class Home extends Component {
                     value={chi.row1[1]}
                     onChange={chi => this.setValues(chi, 1, 1)}
                   />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+
+        {/* phisquare */}
+
+        {step == 1 && (
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input disabled value={phi.row1[0]} />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    disabled
+                    value={phi.row1[1]}
+                    onChange={phi => this.setValues(phi, 1, 1)}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
+
+        {/* fisher test */}
+
+        {step == 1 && (
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <input disabled value={fish.row1[0]} />
+                </td>
+                <td>
+                  <input type="text" disabled value={fish.row1[1]} />
                 </td>
               </tr>
             </tbody>
