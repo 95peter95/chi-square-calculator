@@ -1,3 +1,7 @@
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 .home {
   padding: 56px 20px;
   min-height: 100%;
@@ -29,4 +33,38 @@ th {
   text-align: left;
   background-color: #4caf50;
   color: white;
+}
+
+button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: #000;
+  color: #f6f6f6;
+  text-transform: uppercase;
+  transition: all .18s ease-out;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 12px;
+  line-height: 1.42857;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+button:hover {
+  background-color:#4d4d4d;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
