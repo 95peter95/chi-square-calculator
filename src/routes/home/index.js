@@ -58,20 +58,20 @@ const getFisher = (str1, str2, str3, str4, str5) => {
 
   return bn1.times(bn2).dividedBy(bn3);
 
-  const sum1 =
-    rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
-    rFact(Number.parseFloat(str3) + Number.parseFloat(str4)) *
-    rFact(Number.parseFloat(str1) + Number.parseFloat(str3)) *
-    rFact(Number.parseFloat(str2) + Number.parseFloat(str4));
-  console.log(sum1);
+  // const sum1 =
+  //   rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
+  //   rFact(Number.parseFloat(str3) + Number.parseFloat(str4)) *
+  //   rFact(Number.parseFloat(str1) + Number.parseFloat(str3)) *
+  //   rFact(Number.parseFloat(str2) + Number.parseFloat(str4));
+  // console.log(sum1);
 
-  const sum2 =
-    rFact(Number.parseFloat(str2)) *
-    rFact(Number.parseFloat(str3)) *
-    rFact(Number.parseFloat(str4)) *
-    rFact(Number.parseFloat(str5));
+  // const sum2 =
+  //   rFact(Number.parseFloat(str2)) *
+  //   rFact(Number.parseFloat(str3)) *
+  //   rFact(Number.parseFloat(str4)) *
+  //   rFact(Number.parseFloat(str5));
 
-  console.log(sum2);
+  // console.log(sum2);
 
   const fisher = sum1.toFixed(1) / sum2.toFixed(1);
   console.log(fisher);
