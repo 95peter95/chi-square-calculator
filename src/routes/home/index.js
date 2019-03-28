@@ -108,8 +108,7 @@ class Home extends Component {
     },
 
     chisquare: {
-      row1: ["Chi-square", null, ],
-      row2: ["Is significant at α=0.05", null]
+      row1: ["Chi-square", null, ]
     },
 
     phisquare: {
@@ -189,8 +188,6 @@ class Home extends Component {
 
     // chisquare
     chi.row1[1] = getChisquare(r.row2[1], r.row2[2], r.row3[1], r.row3[2]);
-    chi.row2[1] = getSignificant(chi.row1[1],chi.row1[2]);
-
     // phisquare
     phi.row1[1] = getPhisquare(chi.row1[1], o.row4[3]);
 
@@ -581,16 +578,6 @@ class Home extends Component {
                 <td>
                   <input
                     type="text" disabled value={chi.row1[2]}  
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <input disabled value={chi.row2[0]} />
-                </td>
-                <td>
-                  <input
-                    type="text" disabled value={chi.row1[1]}  
                   />
                 </td>
               </tr>
