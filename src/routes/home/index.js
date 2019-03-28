@@ -53,20 +53,10 @@ const getFisher = (str1, str2, str3, str4, str5) => {
   str4 = Number.parseFloat(str4);
 
   var bn1 = new BigBinom(str1 + str2, str1),
-    bn2 = new BigBinom(str3 + str4, str3),
-    bn3 = new BigBinom(str1 + str2 + str3 + str4, str1 + str3);
+      bn2 = new BigBinom(str3 + str4, str3),
+      bn3 = new BigBinom(str1 + str2 + str3 + str4, str1 + str3);
 
   return bn1.times(bn2).dividedBy(bn3);
-  // const fisher =
-  // ((rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
-  //   rFact(Number.parseFloat(str3) + Number.parseFloat(str4)) *
-  //   rFact(Number.parseFloat(str1) + Number.parseFloat(str3)) *
-  //   rFact(Number.parseFloat(str2) + Number.parseFloat(str4))) /
-  //   rFact(Number.parseFloat(str1))) *
-  // rFact(Number.parseFloat(str2)) *
-  // rFact(Number.parseFloat(str3)) *
-  // rFact(Number.parseFloat(str4)) *
-  // rFact(Number.parseFloat(str5));
 
   const sum1 =
     rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
