@@ -56,7 +56,7 @@ const getFisher = (str1, str2, str3, str4, str5) => {
       bn2 = new BigBinom(str3 + str4, str3),
       bn3 = new BigBinom(str1 + str2 + str3 + str4, str1 + str3);
 
-  return bn1.times(bn2).dividedBy(bn3);
+  return bn1.times(bn2).dividedBy(bn3).toFixed(4);
 
   // const sum1 =
   //   rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
@@ -73,10 +73,10 @@ const getFisher = (str1, str2, str3, str4, str5) => {
 
   // console.log(sum2);
 
-  const fisher = sum1.toFixed(1) / sum2.toFixed(1);
-  console.log(fisher);
+  // const fisher = sum1.toFixed(1) / sum2.toFixed(1);
+  // console.log(fisher);
 
-  return fisher.toFixed(3);
+  // return fisher.toFixed(3);
 };
 
 class Home extends Component {
@@ -108,7 +108,8 @@ class Home extends Component {
     },
 
     chisquare: {
-      row1: ["Chi-square", null]
+      row1: ["Chi-square", null, ],
+      row2: ["Is significant at α=0.05", null]
     },
 
     phisquare: {
@@ -116,7 +117,7 @@ class Home extends Component {
     },
 
     fisher: {
-      row1: ["Fisher", null]
+      row1: ["Fisher Exact Test(one-tailed)", null]
     },
 
     step: 0
@@ -143,6 +144,7 @@ class Home extends Component {
       chisquare: chi,
       phisquare: phi,
       fisher: fish
+      
     } = this.state;
 
     // totals
@@ -187,6 +189,7 @@ class Home extends Component {
 
     // chisquare
     chi.row1[1] = getChisquare(r.row2[1], r.row2[2], r.row3[1], r.row3[2]);
+    chi.row2[1] = getSignificant(chi.row1[1],chi.row1[2]);
 
     // phisquare
     phi.row1[1] = getPhisquare(chi.row1[1], o.row4[3]);
@@ -572,10 +575,22 @@ class Home extends Component {
                 </td>
                 <td>
                   <input
-                    type="text"
-                    disabled
-                    value={chi.row1[1]}
-                    onChange={chi => this.setValues(chi, 1, 1)}
+                    type="text" disabled value={chi.row1[1]}  
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text" disabled value={chi.row1[2]}  
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input disabled value={chi.row2[0]} />
+                </td>
+                <td>
+                  <input
+                    type="text" disabled value={chi.row1[1]}  
                   />
                 </td>
               </tr>
