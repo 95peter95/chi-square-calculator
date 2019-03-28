@@ -46,6 +46,7 @@ function rFact(num) {
   return rval;
 }
 
+//significant condition
 var isSignificant = function(chisquare) {
   if (chisquare < 3.841) {
       return 'result is not significant';
