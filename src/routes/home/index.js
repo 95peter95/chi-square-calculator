@@ -46,6 +46,14 @@ function rFact(num) {
   return rval;
 }
 
+var isSignificant = function(chisquare) {
+  if (chisquare < 3.841) {
+      return 'result is not significant';
+  } else {
+      return 'result is significant';
+  }
+};
+
 const getFisher = (str1, str2, str3, str4, str5) => {
   str1 = Number.parseFloat(str1);
   str2 = Number.parseFloat(str2);
@@ -108,7 +116,7 @@ class Home extends Component {
     },
 
     chisquare: {
-      row1: ["Chi-square", null, ]
+      row1: ["Chi-square", null, null ]
     },
 
     phisquare: {
@@ -188,6 +196,9 @@ class Home extends Component {
 
     // chisquare
     chi.row1[1] = getChisquare(r.row2[1], r.row2[2], r.row3[1], r.row3[2]);
+    chi.row1[2] = isSignificant(chi.row1[1]);
+    
+
     // phisquare
     phi.row1[1] = getPhisquare(chi.row1[1], o.row4[3]);
 
