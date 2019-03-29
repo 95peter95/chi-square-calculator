@@ -548,6 +548,12 @@ var getRelative = function getRelative(str1, str2) {
   return relative.toFixed(2);
 };
 
+var getRelativeSums = function getRelativeSums(str1, str2) {
+  var relativeSums = Number.parseFloat(str1) + Number.parseFloat(str2);
+
+  return relativeSums.toFixed(2);
+};
+
 var getResidual = function getResidual(str1, str2) {
   var residual = Math.pow(Number.parseFloat(str1) - Number.parseFloat(str2), 2) / Number.parseFloat(str2);
   return residual.toFixed(3);
@@ -570,6 +576,7 @@ function rFact(num) {
   }return rval;
 }
 
+//significant condition
 var isSignificant = function isSignificant(chisquare) {
   if (chisquare < 3.841) {
     return 'result is not significant';
@@ -650,10 +657,10 @@ var home_Home = function (_Component) {
       },
 
       relative: {
-        row1: ["Relative (%)", "", ""],
-        row2: ["", null, null],
-        row3: ["", null, null],
-        row4: ["Totals", null, null]
+        row1: ["Relative (%)", "", "", "Totals (%)"],
+        row2: ["", null, null, null],
+        row3: ["", null, null, null],
+        row4: ["Totals (%)", null, null, null]
       },
 
       residual: {
@@ -721,13 +728,13 @@ var home_Home = function (_Component) {
       rel.row3[2] = getRelative(o.row3[2], o.row4[3]);
 
       //relativesums
-      rel.row2[3] = getRelative(rel.row2[1], rel.row2[2]);
-      rel.row3[3] = getRelative(rel.row3[1], rel.row3[2]);
+      rel.row2[3] = getRelativeSums(rel.row2[1], rel.row2[2]);
+      rel.row3[3] = getRelativeSums(rel.row3[1], rel.row3[2]);
 
-      rel.row4[1] = getRelative(rel.row2[1], rel.row2[2]);
-      rel.row4[2] = getRelative(rel.row3[1], rel.row3[2]);
+      rel.row4[1] = getRelativeSums(rel.row2[1], rel.row2[2]);
+      rel.row4[2] = getRelativeSums(rel.row3[1], rel.row3[2]);
 
-      rel.row4[3] = getRelative(rel.row4[1], rel.row4[2]);
+      rel.row4[3] = getRelativeSums(rel.row4[1], rel.row4[2]);
 
       // residual
       r.row2[1] = getResidual(o.row2[1], e.row2[1], e.row2[1]);
@@ -1098,10 +1105,7 @@ var home_Home = function (_Component) {
               Object(preact_min["h"])("input", {
                 type: "text",
                 disabled: true,
-                value: o.row1[1],
-                onChange: function onChange(rel) {
-                  return _this2.setValues(rel, 1, 1);
-                }
+                value: o.row1[1]
               })
             ),
             Object(preact_min["h"])(
@@ -1110,11 +1114,13 @@ var home_Home = function (_Component) {
               Object(preact_min["h"])("input", {
                 type: "text",
                 disabled: true,
-                value: o.row1[2],
-                onChange: function onChange(e) {
-                  return _this2.setValues(e, 1, 2);
-                }
+                value: o.row1[2]
               })
+            ),
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", { disabled: true, value: rel.row1[3] })
             )
           ),
           Object(preact_min["h"])(
@@ -1126,11 +1132,7 @@ var home_Home = function (_Component) {
               Object(preact_min["h"])("input", {
                 type: "text",
                 disabled: true,
-                value: o.row2[0],
-                onChange: function onChange(e) {
-                  return _this2.setValues(e, 2, 0);
-                }
-              })
+                value: o.row2[0] })
             ),
             Object(preact_min["h"])(
               "td",
@@ -1148,6 +1150,11 @@ var home_Home = function (_Component) {
                   return _this2.setValues(rel, 2, 2);
                 }
               })
+            ),
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", { disabled: true, value: rel.row2[3] })
             )
           ),
           Object(preact_min["h"])(
@@ -1174,6 +1181,39 @@ var home_Home = function (_Component) {
               "td",
               null,
               Object(preact_min["h"])("input", { type: "number", disabled: true, value: rel.row3[2] })
+            ),
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", { disabled: true, value: rel.row3[3] })
+            )
+          ),
+          Object(preact_min["h"])(
+            "tr",
+            null,
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", {
+                type: "text",
+                disabled: true,
+                value: rel.row4[0]
+              })
+            ),
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", { type: "number", disabled: true, value: rel.row4[1] })
+            ),
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", { type: "number", disabled: true, value: rel.row4[2] })
+            ),
+            Object(preact_min["h"])(
+              "td",
+              null,
+              Object(preact_min["h"])("input", { disabled: true, value: rel.row4[3] })
             )
           )
         )
