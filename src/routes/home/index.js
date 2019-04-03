@@ -1,6 +1,7 @@
 import { h, Component } from "preact";
 import style from "./style";
 import BigBinom from "bigbinom";
+import Chart from "../../components/Chart";
 
 const sumStrings = (str1, str2) =>
   Number.parseFloat(str1) + Number.parseFloat(str2);
@@ -15,12 +16,12 @@ const getExpected = (str1, str2, str3) => {
 
 const getRelative = (str1, str2) => {
   const relative = (Number.parseFloat(str1) / Number.parseFloat(str2)) * 100;
-  
+
   return relative.toFixed(2);
 };
 
 const getRelativeSums = (str1, str2) => {
-  const relativeSums = (Number.parseFloat(str1) + Number.parseFloat(str2));
+  const relativeSums = Number.parseFloat(str1) + Number.parseFloat(str2);
 
   return relativeSums.toFixed(2);
 };
@@ -55,9 +56,9 @@ function rFact(num) {
 //significant condition
 var isSignificant = function(chisquare) {
   if (chisquare < 3.841) {
-      return 'result is not significant';
+    return "result is not significant";
   } else {
-      return 'result is significant';
+    return "result is significant";
   }
 };
 
@@ -68,10 +69,13 @@ const getFisher = (str1, str2, str3, str4, str5) => {
   str4 = Number.parseFloat(str4);
 
   var bn1 = new BigBinom(str1 + str2, str1),
-      bn2 = new BigBinom(str3 + str4, str3),
-      bn3 = new BigBinom(str1 + str2 + str3 + str4, str1 + str3);
+    bn2 = new BigBinom(str3 + str4, str3),
+    bn3 = new BigBinom(str1 + str2 + str3 + str4, str1 + str3);
 
-  return bn1.times(bn2).dividedBy(bn3).toFixed(4);
+  return bn1
+    .times(bn2)
+    .dividedBy(bn3)
+    .toFixed(4);
 
   // const sum1 =
   //   rFact(Number.parseFloat(str1) + Number.parseFloat(str2)) *
@@ -111,7 +115,7 @@ class Home extends Component {
 
     relative: {
       row1: ["Relative (%)", "", "", "Totals (%)"],
-      row2: ["", null , null, null],
+      row2: ["", null, null, null],
       row3: ["", null, null, null],
       row4: ["Totals (%)", null, null, null]
     },
@@ -123,7 +127,7 @@ class Home extends Component {
     },
 
     chisquare: {
-      row1: ["Chi-square", null, null ]
+      row1: ["Chi-square", null, null]
     },
 
     phisquare: {
@@ -158,7 +162,6 @@ class Home extends Component {
       chisquare: chi,
       phisquare: phi,
       fisher: fish
-      
     } = this.state;
 
     // totals
@@ -204,7 +207,6 @@ class Home extends Component {
     // chisquare
     chi.row1[1] = getChisquare(r.row2[1], r.row2[2], r.row3[1], r.row3[2]);
     chi.row1[2] = isSignificant(chi.row1[1]);
-    
 
     // phisquare
     phi.row1[1] = getPhisquare(chi.row1[1], o.row4[3]);
@@ -450,18 +452,10 @@ class Home extends Component {
                   <input disabled value={rel.row1[0]} />
                 </td>
                 <td>
-                  <input
-                    type="text"
-                    disabled
-                    value={o.row1[1]}
-                  />
+                  <input type="text" disabled value={o.row1[1]} />
                 </td>
                 <td>
-                  <input
-                    type="text"
-                    disabled
-                    value={o.row1[2]}
-                  />
+                  <input type="text" disabled value={o.row1[2]} />
                 </td>
                 <td>
                   <input disabled value={rel.row1[3]} />
@@ -469,14 +463,10 @@ class Home extends Component {
               </tr>
               <tr>
                 <td>
-                  <input
-                    type="text"
-                    disabled
-                    value={o.row2[0]}/>
+                  <input type="text" disabled value={o.row2[0]} />
                 </td>
                 <td>
                   <input type="number" disabled value={rel.row2[1]} />
-                  
                 </td>
                 <td>
                   <input
@@ -511,11 +501,7 @@ class Home extends Component {
               </tr>
               <tr>
                 <td>
-                  <input
-                    type="text"
-                    disabled
-                    value={rel.row4[0]}
-                  />
+                  <input type="text" disabled value={rel.row4[0]} />
                 </td>
                 <td>
                   <input type="number" disabled value={rel.row4[1]} />
@@ -612,14 +598,10 @@ class Home extends Component {
                   <input disabled value={chi.row1[0]} />
                 </td>
                 <td>
-                  <input
-                    type="text" disabled value={chi.row1[1]}  
-                  />
+                  <input type="text" disabled value={chi.row1[1]} />
                 </td>
                 <td>
-                  <input
-                    type="text" disabled value={chi.row1[2]}  
-                  />
+                  <input type="text" disabled value={chi.row1[2]} />
                 </td>
               </tr>
             </tbody>
@@ -663,6 +645,28 @@ class Home extends Component {
               </tr>
             </tbody>
           </table>
+        )}
+        {step == 1 && (
+          <Chart
+            data={[
+              {
+                name: o.row2[0],
+                uv: o.row2[1]
+              },
+              {
+                name: "total a",
+                uv: o.row4[1]
+              },
+              {
+                name: "b",
+                uv: o.row2[2]
+              },
+              {
+                name: "total B",
+                uv: o.row4[2]
+              }
+            ]}
+          />
         )}
       </div>
     );
