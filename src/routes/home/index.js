@@ -650,20 +650,15 @@ class Home extends Component {
           <Chart
             data={[
               {
-                name: o.row2[0],
-                uv: o.row2[1]
+                name: o.row1[1],
+                uv: o.row2[1],
+                pv: o.row2[2],
+              
               },
               {
-                name: "total a",
-                uv: o.row4[1]
-              },
-              {
-                name: "b",
-                uv: o.row2[2]
-              },
-              {
-                name: "total B",
-                uv: o.row4[2]
+                name: o.row1[2],
+                uv: o.row3[1],
+                pv: o.row3[2],
               }
             ]}
           />
