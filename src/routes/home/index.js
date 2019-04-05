@@ -192,8 +192,8 @@ class Home extends Component {
     rel.row2[3] = getRelativeSums(rel.row2[1], rel.row2[2]);
     rel.row3[3] = getRelativeSums(rel.row3[1], rel.row3[2]);
 
-    rel.row4[1] = getRelativeSums(rel.row2[1], rel.row2[2]);
-    rel.row4[2] = getRelativeSums(rel.row3[1], rel.row3[2]);
+    rel.row4[1] = getRelativeSums(rel.row2[1], rel.row3[1]);
+    rel.row4[2] = getRelativeSums(rel.row2[2], rel.row3[2]);
 
     rel.row4[3] = getRelativeSums(rel.row4[1], rel.row4[2]);
 

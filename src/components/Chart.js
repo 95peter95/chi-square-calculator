@@ -14,15 +14,15 @@ export default class componentName extends Component {
 
     return (
       <LineChart
-        width={600}
-        height={300}
+        width={350}
+        height={400}
         data={data}
         margin={{ top: 5, right: 20, bottom: 5, left: 0 }}
       >
         <Line type="monotone" dataKey="uv" stroke="black" />
         <Line type="monotone" dataKey="pv" stroke="red" />
-
-        <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+        
+        <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
