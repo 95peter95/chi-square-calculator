@@ -35044,7 +35044,7 @@ var Chart__ref = Object(preact_min["h"])(cartesian_Line, { type: "monotone", dat
 
 var Chart__ref2 = Object(preact_min["h"])(cartesian_Line, { type: "monotone", dataKey: "pv", stroke: "red" });
 
-var Chart__ref3 = Object(preact_min["h"])(cartesian_CartesianGrid, { stroke: "#ccc", strokeDasharray: "5 5" });
+var Chart__ref3 = Object(preact_min["h"])(cartesian_CartesianGrid, { strokeDasharray: "3 3" });
 
 var Chart__ref4 = Object(preact_min["h"])(cartesian_XAxis, { dataKey: "name" });
 
@@ -35068,8 +35068,8 @@ var Chart_componentName = function (_Component) {
     return Object(preact_min["h"])(
       LineChart,
       {
-        width: 600,
-        height: 300,
+        width: 350,
+        height: 400,
         data: data,
         margin: { top: 5, right: 20, bottom: 5, left: 0 }
       },
@@ -35147,9 +35147,9 @@ function rFact(num) {
 //significant condition
 var isSignificant = function isSignificant(chisquare) {
   if (chisquare < 3.841) {
-    return "result is not significant";
+    return "not significant at α=0,05";
   } else {
-    return "result is significant";
+    return "is significant at α=0,05";
   }
 };
 
@@ -35246,7 +35246,7 @@ var home_Home = function (_Component) {
       },
 
       fisher: {
-        row1: ["Fisher Exact Test(one-tailed)", null]
+        row1: ["Fisher Exact Test", null]
       },
 
       step: 0
@@ -35299,8 +35299,8 @@ var home_Home = function (_Component) {
       rel.row2[3] = getRelativeSums(rel.row2[1], rel.row2[2]);
       rel.row3[3] = getRelativeSums(rel.row3[1], rel.row3[2]);
 
-      rel.row4[1] = getRelativeSums(rel.row2[1], rel.row2[2]);
-      rel.row4[2] = getRelativeSums(rel.row3[1], rel.row3[2]);
+      rel.row4[1] = getRelativeSums(rel.row2[1], rel.row3[1]);
+      rel.row4[2] = getRelativeSums(rel.row2[2], rel.row3[2]);
 
       rel.row4[3] = getRelativeSums(rel.row4[1], rel.row4[2]);
 
