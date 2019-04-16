@@ -35509,7 +35509,7 @@ var home_Home = function (_Component) {
       Object(preact_min["h"])(
         "button",
         { onClick: this.onSumExpected },
-        "Calculate Chi-Square Value"
+        "Calculate"
       ),
       home__ref2,
       home__ref3,
