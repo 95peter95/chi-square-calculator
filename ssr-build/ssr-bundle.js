@@ -35064,7 +35064,6 @@ var Chart_componentName = function (_Component) {
   componentName.prototype.render = function render() {
     var data = this.props.data;
 
-
     return Object(preact_min["h"])(
       LineChart,
       {
